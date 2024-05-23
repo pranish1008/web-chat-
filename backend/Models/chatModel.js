@@ -10,7 +10,7 @@ const chatModel  =mongoose.Schema(
 
         },
     ],
-    lateshMessage:{
+    latestMessage:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Message",
     },

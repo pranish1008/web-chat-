@@ -10,26 +10,24 @@ import {
 } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 
 const Signup = () => {
   const [show, setShow] = useState(false);
-
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [confirmpassword, setConfirmpassword] = useState();
   const [password, setPassword] = useState();
   const [pic, setPic] = useState();
-  const [loading, setLoading] = useState(false);
+  const [picloading, setPicLoading] = useState(false);
   const handleClick = () => setShow(!show);
   const toast = useToast();
   const history = useHistory();
-
   const postDetails = (pics) => {
-    setLoading(true);
+   setPicLoading(true);
     if (pics === undefined) {
       toast({
-        title: "Please Select an Image! 11111",
+        title: "Please Select an Image!",
         status: "warning",
         duration: 5000, 
         isClosable: true,
@@ -51,11 +49,11 @@ const Signup = () => {
         .then((data) => {
           setPic(data.url.toString());
           console.log(data.url.toString());
-          setLoading(false);
+         setPicLoading(false);
         })
         .catch((err) => {
           console.log(err);
-          setLoading(false);
+         setPicLoading(false);
         });
     } else {
       toast({
@@ -65,22 +63,22 @@ const Signup = () => {
         isClosable: true,
         position: "bottom",
       });
-      setLoading(false);
+     setPicLoading(false);
       return;
     }
   };
 
   const submitHandler = async () => {
-    setLoading(true);
+   setPicLoading(true);
     if (!name || !email || !password || !confirmpassword) {
       toast({
-        title: "Please Fill all the Feilds",
+        title: "Please Fill all the Fields",
         status: "warning",
         duration: 5000,
         isClosable: true,
         position: "bottom",
       });
-      setLoading(false);
+     setPicLoading(false);
       return;
     }
     if (password !== confirmpassword) {
@@ -93,7 +91,6 @@ const Signup = () => {
       });
       return;
     }
-    console.log(name, email, password, pic);
     try {
       const config = {
         headers: {
@@ -119,7 +116,7 @@ const Signup = () => {
         position: "bottom",
       });
       localStorage.setItem("userInfo", JSON.stringify(data));
-      setLoading(false);
+     setPicLoading(false);
       history.push("/chats");
     } catch (error) {
       toast({
@@ -130,7 +127,7 @@ const Signup = () => {
         isClosable: true,
         position: "bottom",
       });
-      setLoading(false);
+     setPicLoading(false);
     }
   };
 
@@ -195,7 +192,7 @@ const Signup = () => {
         borderRadius={'20px'}
         style={{ marginTop: 15 }}
         onClick={submitHandler}
-        isLoading={loading}
+        isLoading={picloading}
         loadingText='Uploading Pic'
         
       >

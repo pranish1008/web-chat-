@@ -1,26 +1,37 @@
 import React from "react";
 import { Box, 
   Container,
-   Text,
-   Tab,
+  Text,
+  Tab,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
- } from "@chakra-ui/react";
+} from "@chakra-ui/react";
 import Signup from "../components/Authentication/Signup";
 import Login from "../components/Authentication/Login";
+import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 
 
 
 
 
-const homepage = () => {
+
+const Homepage=()=>{
+  const history =useHistory();
+
+  useEffect(()=>{
+    const user = JSON.parse(localStorage.getItem("userInfo"));
+    if(user) history.push("/chats");
+
+  },[history]);
+
   return (
     <Container maxW="xl" centerContent>
       <Box
-        d="flex"
+        display="flex"
         justifyContent="center"
         p={3}
         w="100%"
@@ -53,4 +64,4 @@ const homepage = () => {
   );
 };
 
-export default homepage;
+export default Homepage;
